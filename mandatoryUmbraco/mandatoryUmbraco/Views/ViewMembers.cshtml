@@ -1,0 +1,36 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using Newtonsoft.Json;
+@using Umbraco.Web.Models;
+@{
+	Layout = "Master.cshtml";
+}
+<h2>Members of Århus Webdevelopers</h2>
+<div class="col-sm-6">
+	<h3>Active members:</h3>
+@{
+var memberService = ApplicationContext.Current.Services.MemberService;
+var members = memberService.GetMembersByGroup("Active");
+}
+
+@foreach(var member in members) {
+<p style="border-bottom:solid 1px black">
+Name: @member.GetValue("firstname") 
+@member.GetValue("lastname") <br>
+Town: @member.GetValue("zip") @member.GetValue("city") <br>
+Email: @member.Email<br></p>
+}
+</div>
+<div class="col-sm-6" style="border-left:solid 1px black;">
+	<h3>Prospect members:</h3>
+@{
+var memberService2 = ApplicationContext.Current.Services.MemberService;
+var members2 = memberService2.GetMembersByGroup("Prospect");
+}
+
+@foreach(var member in members2) {
+<p style="border-bottom:solid 1px black">
+Name: @member.GetValue("firstname") 
+@member.GetValue("lastname") <br>
+Email: @member.Email<br></p>
+}
+</div>

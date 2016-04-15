@@ -1,0 +1,58 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+
+@*
+    This snippet displays a list of links of the pages immediately under the top-most page in the content tree.
+    This is the home page for a standard website.
+    It also highlights the current active page/section in the navigation with the css class "current".
+*@
+@{ var selection = CurrentPage.Site().Children.Where("Visible"); }
+
+<ul>
+	@{
+		var homePage = CurrentPage.AncestorsOrSelf(1).FirstOrDefault();
+	}
+
+	@if (CurrentPage.Name == homePage.Name){
+		<li><a href="@homePage.Url" class="navSelected">Home</a></li>
+	}else{
+		<li><a href="@homePage.Url">Home</a></li>
+	}
+
+    @foreach (var item in selection)
+    {
+		if (CurrentPage.Name == item.Name){
+			<li class="@(item.IsAncestorOrSelf(CurrentPage) ? "current" : null)">
+				<a href="@item.Url" class="navSelected">@item.Name</a>
+			</li>
+		}else{
+			 <li class="@(item.IsAncestorOrSelf(CurrentPage) ? "current" : null)">
+				<a href="@item.Url">@item.Name</a>
+			</li>
+		}
+       
+    }
+
+	<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Finished visible projects
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="dLabel">
+    
+
+
+@{
+	var finishedProjects = CurrentPage.Site().FirstChild("projectsMain").Children("projectItem").Where("Visible && projectStatus == @0",9);
+}
+	@foreach(var item in finishedProjects){
+		<li>
+			<a href="@item.Url">@item.Name</a>
+		</li>
+	}
+
+
+
+
+  </ul></li>
+</ul>

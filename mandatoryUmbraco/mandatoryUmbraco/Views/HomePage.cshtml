@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = "Master.cshtml";
+	
+}
+<div class="col-sm-7">
+	<h2>@Umbraco.Field("siteTitle")</h2>
+	@Umbraco.Field("mainContent")
+</div>
+<div class="col-sm-5" style="border-left:solid 1px #424242;">
+	<h2>The latest completed projects</h2>
+	@Html.Partial("threeFinished")
+</div>
+		
+		
+		
+		

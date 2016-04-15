@@ -1,0 +1,13 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	var fiveFinishedProjects = CurrentPage.Site().FirstChild("projectsMain").Children("projectItem").Where("Visible && projectStatus == @0",9).OrderBy("CreateDate desc").Take(5);
+} <ul>
+	@foreach(var item in fiveFinishedProjects){
+		<li>
+			@item.Name
+		</li>
+	}
+<ul>
+	
+	
+

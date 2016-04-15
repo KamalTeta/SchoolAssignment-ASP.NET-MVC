@@ -1,0 +1,30 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = "Master.cshtml";
+	
+	
+
+
+}
+<h1>All projects:</h1>
+		
+@{
+	var selection = CurrentPage.Site().FirstChild("projectsMain").Children("projectItem").Where("Visible").OrderBy("CreateDate desc");
+}
+<ul style="list-style:none;">
+	@foreach(var item in selection){
+		<li style="border-bottom:solid 1px black;">
+			<p>Project title: <u><a href="@item.Url">@item.Name</a></u></p> 
+			@if (item.projectStatus == 9){
+				<p>The project has been completed</p>
+			}else if(item.projectStatus == 8){
+				<p>The project is under development, you must be an active member to see it</p>
+			}else if(item.projectStatus == 7){
+				<p>The project initiated, you must be a member to see it</p>
+			}
+		<p>Creator: @item.CreatorName</p>
+		<p>Created on: @item.CreateDate</p>
+		</li>
+	}
+</ul>
+
