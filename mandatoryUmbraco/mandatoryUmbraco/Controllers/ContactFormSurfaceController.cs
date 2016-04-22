@@ -31,10 +31,20 @@ namespace mandatoryUmbraco.Controllers
             comment.SetValue("subject", model.Subject);
             comment.SetValue("message", model.Message);
 
-            //Save
-            Services.ContentService.Save(comment);
 
-            return RedirectToCurrentUmbracoPage();
+            //Save
+            if (ModelState.IsValid)
+            {
+                Services.ContentService.Save(comment);
+                return RedirectToCurrentUmbracoPage();
+            }
+            else
+            {
+                return RedirectToCurrentUmbracoPage();
+            }
+
+
+
         }
     }
 }
